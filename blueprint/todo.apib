@@ -1,0 +1,93 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:3000
+
+# Todos Endpoint
+
+# Group Todos
+Represents todos details. 
+
+---
+**album attributes:**
+
+- id `(Number)` : unique identifier.
+- userId `(Number)` : represent the user id.
+- title `(String)` : todos's title.
+- completed `(Boolean)`: completion status.
+
+## Todos Collection [/todos]
+
+### List All todo [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Todo, Todo, Todo])
+
+
+### Create a New Todo [POST]
+
++ Request (application/json)
+
+    + Attributes (TodoRequest)
+
++ Response 201 (application/json)
+
+        + Headers
+
+                + Location: /todos/5
+
+    + Attributes (Todo)
+         
+
+            
+## Todo [/todos/{todoId}]
+Single todo.
+
++ Parameters
+    + todoId (Number, required, `1`) - Represent the todo id.
+
+### Get single todo [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (Todo)
+
+### Put request to todo [PUT]
+
++ Request (application/json)
+
+    + Attributes (TodoRequest)
+
+
++ Response 201 (application/json)
+
+    + Attributes (Todo)
+
+### Patch request single Todo [PATCH]
+
++ Request (application/json)
+
+    + Attributes (TodoRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Todo)
+
+### Delete single Todo [DELETE]
+
++ Response 204 (application/json)
+
+
+## Data Structures
+
+### Todo
+
++ `userId`: 1,
++ `id`: 1,
++ `title`: "Lorem Ipsum"
++ `completed`: false
+
+### TodoRequest
+
++ `userId`: 1,
++ `title`: "Lorem Ipsum"
++ `completed`: true

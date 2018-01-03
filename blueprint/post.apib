@@ -5,7 +5,7 @@ HOST: http://127.0.0.1:3000
 
 This task created to finishing task given by Mr. Guf
 
-# Group Post
+# Group Posts
 Represents post details. 
 
 ---
@@ -21,82 +21,32 @@ Represents post details.
 
 ## Post Collection [/posts]
 
-### List All Questions [GET]
+### List All Post [GET]
 
 + Response 200 (application/json)
-
-        [
-            {
-                "userId": 1,
-                "id": 1,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-            },
-            {
-                "userId": 2,
-                "id": 2,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-            },
-            {
-                "userId": 3,
-                "id": 3,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-            },
-            {
-                "userId": 4,
-                "id": 4,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-            }
-        ]
-
+    + Attributes (array[Post, Post, Post])
+    
 ### Create a New Post [POST]
 
 + Request (application/json)
 
-            {
-                    "title": "Create a new post",
-                    "body": "The body of the now"
-            }
+    + Attributes (PostRequest)
 
 + Response 201 (application/json)
 
-    + Headers
-
-            Location: /questions/5
-
-    + Body
-
-            {
-                    "userId": 1,
-                    "id": 5,
-                    "title": "Create a new post",
-                    "body": "The body of the now"
-            }
+        + Headers
+            + Location: /album/5
             
-### Questions Based on User Id [GET /posts/{?userId}]
+    + Attributes (Post)
+            
+### Post Based on User Id [GET /posts/{?userId}]
 
 + Parameters
     + userId (String, optional, `1`) - Specifying the author
 
 + Response 200 (application/json)
 
-        [
-            {
-                "userId": 1,
-                "id": 1,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-            },
-            {
-                "userId": 1,
-                "id": 2,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-            }
-        ]
+    + Attributes (array[Post, Post])
             
 
             
@@ -104,55 +54,35 @@ Represents post details.
 Single post.
 
 + Parameters
-    + postId (Number, required, `1`) - Represent the post id.
+    + postId (Number, optional, `1`) - Represent the post id.
 
 
 ### Get single post [GET]
 
 + Response 200 (application/json)
 
-        {
-                "userId": 1,
-                "id": 1,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-        }
+    + Attributes (Post)
 
 ### Put request single post [PUT]
 
 + Request (application/json)
 
-            {
-                    "title": "Update post",
-                    "body": "The body of the put"
-            }
+    + Attributes (PostRequest)
 
 
 + Response 201 (application/json)
 
-        {
-                "userId": 1,
-                "id": 1,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-        }
+    + Attributes (Post)
 
 ### Patch request single post [PATCH]
 
 + Request (application/json)
 
-            {
-                    "body": "The body of the patch"
-            }
+    + Attributes (PostRequest)
 
 + Response 201 (application/json)
 
-        {
-                "userId": 1,
-                "id": 1,
-                "title": "Lorem Ipsum",
-                "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-        }
+    + Attributes (Post)
 
 
 ### Delete single post [DELETE]
@@ -163,40 +93,26 @@ Single post.
 
 + Response 200 (application/json)
 
-        [
-            {
-                "postId": 1,
-                "id": 1,
-                "name": "id labore ex et quam laborum",
-                "email": "Eliseo@gardner.biz",
-                "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
-            },
-            {
-                "postId": 2,
-                "id": 2,
-                "name": "quo vero reiciendis velit similique earum",
-                "email": "Jayne_Kuhic@sydney.com",
-                "body": "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et"
-            },
-            {
-                "postId": 3,
-                "id": 3,
-                "name": "odio adipisci rerum aut animi",
-                "email": "Nikita@garfield.biz",
-                "body": "quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione"
-            },
-            {
-                "postId": 4,
-                "id": 4,
-                "name": "alias odio sit",
-                "email": "Lew@alysha.tv",
-                "body": "non et atque\noccaecati deserunt quas accusantium unde odit nobis qui voluptatem\nquia voluptas consequuntur itaque dolor\net qui rerum deleniti ut occaecati"
-            },
-            {
-                "postId": 5,
-                "id": 5,
-                "name": "vero eaque aliquid doloribus et culpa",
-                "email": "Hayden@althea.biz",
-                "body": "harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et"
-            }
-        ]
+    + Attributes (array[Comment, Comment, Comment])
+
+## Data Structures
+
+### Post
+
++ `userId`: 1,
++ `id`: 2,
++ `title`: "Lorem Ipsum",
++ `body`: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+
+### PostRequest
+
++ `title`: "Lorem Ipsum",
++ `body`: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+
+### Comment
+
++ `postId`: 1,
++ `id`: 1,
++ `name`: "id labore ex et quam laborum",
++ `email`: "Eliseo@gardner.biz",
++ `body`: "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"

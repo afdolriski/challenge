@@ -1,0 +1,108 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:3000
+
+# Users Endpoint
+
+# Group Users
+Represents users details. 
+
+---
+**user attributes:**
+
+- id `(Number)` : unique identifier.
+- name `(String)`
+- username `(String)`
+- email `(String)`
+- address `(Object)` : user address complete with geo location
+- phone `(String)`
+- website `(String)`
+- company `(Object)`
+
+## User Collection [/users]
+
+### List All User [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[User])
+
+
+### Create a New User [POST]
+
++ Request (application/json)
+
+    + Attributes (User)
+
++ Response 201 (application/json)
+
+        + Headers
+
+                + Location: /users/5
+
+    + Attributes (User)
+         
+
+            
+## User [/users/{userId}]
+Single user.
+
++ Parameters
+    + userId (Number, required, `1`) - Represent the user id.
+
+### Get single user [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (User)
+
+### Put request to user [PUT]
+
++ Request (application/json)
+
+    + Attributes (User)
+
+
++ Response 201 (application/json)
+
+    + Attributes (User)
+
+### Patch request single user [PATCH]
+
++ Request (application/json)
+
+    + Attributes (User)
+
++ Response 201 (application/json)
+
+    + Attributes (User)
+
+### Delete single User [DELETE]
+
++ Response 204 (application/json)
+
+
+## Data Structures
+
+### User
+
+`id`: 1,
+`name`: "Leanne Graham",
+`username`: "Bret",
+`email`: "Sincere@april.biz",
+`address`: {
+    `street`: "Kulas Light",
+    `suite`: "Apt. 556",
+    `city`: "Gwenborough",
+    `zipcode`: "92998-3874",
+    `geo`: {
+        `lat`: "-37.3159",
+        `lng`: "81.1496"
+    }
+},
+`phone`: "1-770-736-8031 x56442",
+`website`: "hildegard.org",
+`company`: {
+    `name`: "Romaguera-Crona",
+    `catchPhrase`: "Multi-layered client-server neural-net",
+    `bs`: "harness real-time e-markets"
+}

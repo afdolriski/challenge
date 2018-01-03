@@ -1,0 +1,96 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:3000
+
+# Photos Endpoint
+
+# Group Photos
+Represents photos details. 
+
+---
+**album attributes:**
+
+- id `(Number)` : unique identifier.
+- albumId `(Number)` : represent the album id on which the photo is belong to.
+- title `(String)` : photo's title.
+- url `(String)` : photo's url.
+- thumbnailUrl `(String)` : url for photo thumbnail.
+
+## Album Collection [/photos]
+
+### List All photo [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Photo, Photo, Photo])
+
+
+### Create a New Photo [POST]
+
++ Request (application/json)
+
+    + Attributes (PhotoRequest)
+
++ Response 201 (application/json)
+
+        + Headers
+
+            + Location: /album/5
+            
+    + Attributes (Photo)
+         
+
+            
+## Photo [/photos/{photoId}]
+Single Photo.
+
++ Parameters
+    + photoId (Number, required, `1`) - Represent the photo id.
+
+### Get single photo [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (Photo)
+
+### Put request to photo [PUT]
+
++ Request (application/json)
+
+    + Attributes (PhotoRequest)
+
+
++ Response 201 (application/json)
+
+    + Attributes (Photo)
+
+### Patch request single Photo [PATCH]
+
++ Request (application/json)
+
+    + Attributes (Photo)
+
++ Response 201 (application/json)
+
+    + Attributes (Photo)
+
+### Delete single photo [DELETE]
+
++ Response 204 (application/json)
+
+
+## Data Structures
+
+### Photo
+
++ `albumId`: 1,
++ `id`: 1,
++ `title`: "Lorem Ipsum",
++ `url`: "http://test.com/test.jpg",
++ `thumbnailUrl` : "http://test2.com/test.png"
+
+### PhotoRequest
+
++ `albumId`: 1,
++ `title`: "Lorem Ipsum",
++ `url`: "http://test.com/test.jpg",
++ `thumbnailUrl` : "http://test2.com/test.png"

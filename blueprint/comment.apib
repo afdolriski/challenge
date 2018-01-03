@@ -1,0 +1,100 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:3000
+
+# JSONPlaceholder Task
+
+This task created to finishing task given by Mr. Guf
+
+# Group Comment
+Represents comment details. 
+
+---
+**Comment attributes:**
+
+- id `(Number)` : unique identifier. 
+- postId `(Number)` : post id to add the comment.
+- name `(String)` : commenters name.
+- email `(String)` : commenters email.
+- body `(String)` : comment's body.
+
+---
+
+
+## Comment Collection [/comments]
+
+### List All Comments [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Comment, Comment, Comment])
+
+### Create a New Comment [POST]
+
++ Request (application/json)
+
+    + Attributes (Comment)
+
++ Response 201 (application/json)
+
+        + Headers
+
+            + Location: /comments/501
+                    
+    + Attributes (Comment)
+            
+### Comments Based on Post Id [GET /comments/{?postId}]
+
++ Parameters
+    + postId (Number, optional, `1`) - Specifying the Post Id
+
++ Response 200 (application/json)
+
+        + Attributes (Comment)
+            
+
+            
+## Comment [/comments/{commentId}]
+Single Comment.
+
++ Parameters
+    + commentId (Number, required, `1`) - Represent the comment id.
+
+### Put request to comment [PUT]
+
++ Request (application/json)
+
+            {
+                "postId": 1,
+                "body": "test test test",
+                "id": 501
+            }
+
+
++ Response 201 (application/json)
+
+        + Attributes (Comment)
+
+### Patch request single comment [PATCH]
+
++ Request (application/json)
+
+        + Attributes (Comment)
+
++ Response 201 (application/json)
+
+        + Attributes (Comment)
+
+
+### Delete single comment [DELETE]
+
++ Response 204 (application/json)
+
+## Data Structures
+
+### Comment
+
++ `postId`: 1,
++ `id`: 1,
++ `name`: "id labore ex et quam laborum",
++ `email`: "Eliseo@gardner.biz",
++ `body`: "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"

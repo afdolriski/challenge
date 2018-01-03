@@ -1,0 +1,85 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:3000
+
+# Albums Endpoint
+
+# Group Album
+Represents album details. 
+
+---
+**album attributes:**
+
+- id `(Number)` : unique identifier.
+- userId `(Number)` : represent the album owner.
+- title `(String)` : album's title.
+
+## Album Collection [/albums]
+
+### List All Albums [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Album])
+
+
+### Create a New Album [POST]
+
++ Request (application/json)
+
+    + Attributes (Album)
+
++ Response 201 (application/json)
+
+        + Headers
+
+            + Location: /album/5
+            
+    + Attributes (Album)
+         
+
+            
+## Album [/albums/{albumId}]
+Single Album.
+
++ Parameters
+    + albumId (Number, required, `1`) - Represent the album id.
+
+### Get single album [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (Album)
+
+### Put request to album [PUT]
+
++ Request (application/json)
+
+    + Attributes (Album)
+
+
++ Response 201 (application/json)
+
+    + Attributes (Album)
+
+### Patch request single album [PATCH]
+
++ Request (application/json)
+
+    + Attributes (Album)
+
++ Response 201 (application/json)
+
+    + Attributes (Album)
+
+### Delete single album [DELETE]
+
++ Response 204 (application/json)
+
+
+## Data Structures
+
+### Album
+
++ `userId`: 1,
++ `id`: 1,
++ `title`: "Lorem Ipsum",
