@@ -11,8 +11,8 @@ user_fields = {
     'username': fields.String,
     'name': fields.String,
     'email': fields.String,
-    'address': fields.String,
-    'website': fields.String,
+    'city': fields.String,
+    'cmpName': fields.String,
     'phone': fields.String,
     'company': fields.String
 }
@@ -30,7 +30,7 @@ class UserList(Resource):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument(
             'username',
-            required=True,
+            # required=True,
             help='No username provided',
             location=['form', 'json']
         )
@@ -47,7 +47,7 @@ class UserList(Resource):
             location=['form', 'json']
         )
         self.reqparse.add_argument(
-            'address',
+            'city',
             required=True,
             help='No address provided',
             location=['form', 'json']
@@ -67,11 +67,11 @@ class UserList(Resource):
         self.reqparse.add_argument(
             'website',
             required=True,
-            help='No username provided',
+            help='No website provided',
             location=['form', 'json']
         )
         self.reqparse.add_argument(
-            'company',
+            'cmpName',
             required=True,
             help='No username provided',
             location=['form', 'json']
@@ -79,12 +79,13 @@ class UserList(Resource):
         super(UserList, self).__init__()
 
     def get(self):
-        users = [marshal(user, user_fields) for user in models.User.select()]
+        users = [marshal(user, user_fields) for user in models.User.query.all()]
         return users
 
     def post(self):
         args = self.reqparse.parse_args()
-        user = models.User.create_user(**args)
+        user = models.User.save(**args)
+        print(user)
         return marshal(user, user_fields), 201
 
 class User(Resource):

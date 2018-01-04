@@ -22,6 +22,7 @@ def create_app():
 
     app.register_blueprint(myapi)
     app.register_blueprint(todos_api)
+    app.register_blueprint(users_api)
 
     return app
 

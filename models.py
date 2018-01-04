@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 from werkzeug.security import gen_salt
 from core import db
 import bcrypt
-from mixer.backend.flask import mixer
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -10,7 +9,7 @@ class User(db.Model):
     username = db.Column(db.String(40), unique=True)
     name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    hashpw = db.Column(db.String(80), nullable=False)
     phone = db.Column(db.String(15), nullable=False)
     website = db.Column(db.String(20), nullable=False)
     street = db.Column(db.String(20))
@@ -39,15 +38,20 @@ class User(db.Model):
 
     @staticmethod
     def save(**kwargs):
+        """ Create a new User record with the supplied username and password.
+
+        :param username: Username of the user.
+        :param password: Password of the user.
+        """
+        print(kwargs)
         salt = bcrypt.gensalt()
-        hash = bcrypt.hashpw(str(kwargs['password']).encode('utf-8'), salt)
-        kwargs.pop('submit', None)
-        kwargs['password'] = str(hash)
-        mydict = dict(kwargs)
-        print(mydict)
+        hash = bcrypt.hashpw(kwargs['password'].encode('utf-8'), salt)
+        kwargs['hashpw'] = hash
+        kwargs.pop('password', None)
         user = User(**kwargs)
         db.session.add(user)
         db.session.commit()
+        return user
 
     @staticmethod
     def all():

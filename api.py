@@ -33,9 +33,7 @@ def revoke_token():
 def management():
     """ This endpoint is for vieweing and adding users and clients. """
     if request.method == 'POST' and request.form['submit'] == 'Add User':
-        # print(dict(request.form))
-        # print(request.data)'
-        User.save(**request.form)
+        User.save(request.form['username'], request.form['password'])
     if request.method == 'POST' and request.form['submit'] == 'Add Client':
         Client.generate()
     return render_template('management.html', users=User.all(),
