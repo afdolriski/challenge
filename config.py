@@ -1,0 +1,5 @@
+DEBUG = True
+HOST = '0.0.0.0'
+PORT = 3000
+SECRET_KEY = 'KJHHJKHKJLHjklhhkjl29384jklHJK897'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'

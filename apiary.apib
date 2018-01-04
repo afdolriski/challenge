@@ -1,0 +1,545 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:3000
+
+# JSONPlaceholder Task
+
+This task created to finishing challenge given by Mr. Guf
+
+# Group Posts
+
+These endpoints are a way to access all available posts entity. A post entity **should have title, body and it's author on it**, below describing each type of those fields.
+
+---
+**Post attributes:**
+
+- id `(Number)` : unique identifier. 
+- userId `(Number)` : post's author.
+- title `(String)` : post's title.
+- body `(String)` : post's body.
+
+---
+
+## Post Collection [/posts]
+`/posts`
+
+This endpoint interacting with a collection of posts.
+
+### List All Post [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[Post, Post, Post])
+    
+### Create Post [POST]
+
++ Request (application/json)
+
+    + Attributes (PostRequest)
+
++ Response 201 (application/json)
+
+        + Headers
+            + Location: /album/5
+            
+    + Attributes (Post)
+            
+### Retrieve Post Based on User Id [GET /posts/{?userId}]
+
++ Parameters
+    + userId (String, optional, `1`) - Specifying the author
+
++ Response 200 (application/json)
+
+    + Attributes (array[Post, Post])
+
+## Post  [/posts/{postId}]
+`/posts/{postId}`
+
+This endpoint only interacted with only **single post**.
+
+
++ Parameters
+    + postId (Number, optional, `1`) - Represent the post id.
+
+
+### Retrieve Post [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (Post)
+
+### Update Post [PUT]
+
++ Request (application/json)
+
+    + Attributes (PostRequest)
+
+
++ Response 201 (application/json)
+
+    + Attributes (Post)
+
+### Remove Post [DELETE]
+
++ Response 204 (application/json)
+
+### Retrieve Post's Comment [GET /comments]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Comment, Comment, Comment])
+
+## Data Structures
+
+### Post
+
++ `userId`: 1,
++ `id`: 2,
++ `title`: "Lorem Ipsum",
++ `body`: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+
+### PostRequest
+
++ `title`: "Lorem Ipsum",
++ `body`: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+
+### Comment
+
++ `postId`: 1,
++ `id`: 1,
++ `name`: "id labore ex et quam laborum",
++ `email`: "Eliseo@gardner.biz",
++ `body`: "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
+
+# Comments
+
+# Group Comments 
+
+These endpoints interacting with collection of comment where a comment should have a **postId** to which the comment comes from.
+Comment also need to have information about its author, which is the following **email and name**,
+and of course must have a **body**.
+
+
+---
+**Comment attributes:**
+
+- id `(Number)` : unique identifier. 
+- postId `(Number)` : post id to add the comment.
+- name `(String)` : commenters name.
+- email `(String)` : commenters email.
+- body `(String)` : comment's body.
+
+---
+
+
+## Comment Collection [/comments]
+`/posts`
+
+
+This endpoint interacting with **collection of comments**.
+
+### List All Comments [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Comment, Comment, Comment])
+
+### Create a New Comment [POST]
+
++ Request (application/json)
+
+    + Attributes (Comment)
+
++ Response 201 (application/json)
+
+        + Headers
+
+            + Location: /comments/501
+                    
+    + Attributes (Comment)
+            
+### Retrieve Comments Based on Certain Post's Id [GET /comments/{?postId}]
+
++ Parameters
+    + postId (Number, optional, `1`) - Specifying the Post Id
+
++ Response 200 (application/json)
+
+        + Attributes (Comment)
+            
+
+            
+## Comment [/comments/{commentId}]
+`/comments/{commentId}`
+
+This endpoint is interacting with a **single comment**, but doesn't provide a way to retrieve a single comment.
+
++ Parameters
+    + commentId (Number, required, `1`) - Represent the comment id.
+
+### Update Comment [PUT]
+
++ Request (application/json)
+
+            {
+                "postId": 1,
+                "body": "test test test",
+                "id": 501
+            }
+
+
++ Response 201 (application/json)
+
+        + Attributes (Comment)
+
+### Remove Comment [DELETE]
+
++ Response 204 (application/json)
+
+
+# Group Users
+These endpoint interacting with user entities, each user **must have name, username, password and email**, 
+the rest is optional.
+
+---
+**user attributes:**
+
+- id `(Number)` : unique identifier.
+- name `(String)`
+- password `(String)`
+- username `(String)`
+- email `(String)`
+- address `(Object)` : user address complete with geo location
+- phone `(String)`
+- website `(String)`
+- company `(Object)`
+
+---
+
+## User Collection [/users]
+This endpoint interacting with a collection of user.
+
+### List All User [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[User])
+
+
+### Create a New User [POST]
+
++ Request (application/json)
+
+    + Attributes (User)
+
++ Response 201 (application/json)
+
+        + Headers
+
+                + Location: /users/5
+
+    + Attributes (User)
+         
+## User [/users/{userId}]
+This endpoint interacting with only a single user.
+
++ Parameters
+    + userId (Number, required, `1`) - Represent the user id.
+
+### Retrieve User [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (User)
+
+### Update User [PUT]
+
++ Request (application/json)
+
+    + Attributes (User)
+
+
++ Response 201 (application/json)
+
+    + Attributes (User)
+
+### Remove User [DELETE]
+
++ Response 204 (application/json)
+
+
+## Data Structures
+
+### User
+
++ `id`: 1,
++ `name`: `Leanne Graham`,
++ `username`: `Bret`,
++ `password` : `Pass`,
++ `email`: `Sincere@april.biz`,
++ `address` (object)
+    + `street`: `Kulas Light`,
+    + `suite`: `Apt. 556`,
+    + `city`: `Gwenborough`,
+    + `zipcode`: `92998-3874`,
+    + `geo` (object)
+        + `lat`: `-37.3159`,
+        + `lng`: `81.1496`
++ `phone`: `1-770-736-8031 x56442`,
++ `website`: `hildegard.org`,
++ `company`(object)
+    + `name`: `Romaguera-Crona`,
+    + `catchPhrase`: `Multi-layered client-server neural-net`,
+    + `bs`: `harness real-time e-markets`
+    
+
+# Albums
+
+# Group Albums
+
+These endpoints are the collection of album entities, each album has to have
+the information about its owner that is which is stored in **userId** fields.
+
+---
+**album attributes:**
+
+- id `(Number)` : unique identifier.
+- userId `(Number)` : represent the album owner.
+- title `(String)` : album's title.
+
+## Album Collection [/albums]
+`/albums`
+
+This endpoint is interacting with colletion of albums.
+
+### List All Albums [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Album])
+
+
+### Create a New Album [POST]
+
++ Request (application/json)
+
+    + Attributes (Album)
+
++ Response 201 (application/json)
+
+        + Headers
+
+            + Location: /album/5
+            
+    + Attributes (Album)
+         
+
+            
+## Album [/albums/{albumId}]
+`/albums/{albumId}`
+
+This endpoint interacting with a single album.
+
++ Parameters
+    + albumId (Number, required, `1`) - Represent the album id.
+
+### Retrieve an Album [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (Album)
+
+### Update an Album [PUT]
+
++ Request (application/json)
+
+    + Attributes (Album)
+
+
++ Response 201 (application/json)
+
+    + Attributes (Album)
+
+### Remove an Album [DELETE]
+
++ Response 204 (application/json)
+
+
+## Data Structures
+
+### Album
+
++ `userId`: 1,
++ `id`: 1,
++ `title`: "Lorem Ipsum",
+
+# Photos Endpoint
+
+# Group Photos
+These endpoint is a way to access all of available photo, **all of the provided field is required**.
+
+---
+**album attributes:**
+
+- id `(Number)` : unique identifier.
+- albumId `(Number)` : represent the album id on which the photo is belong to.
+- title `(String)` : photo's title.
+- url `(String)` : photo's url.
+- thumbnailUrl `(String)` : url for photo thumbnail.
+
+---
+
+## Photo Collection [/photos]
+`/photos`
+
+This endpoint interacted with collection of photo.
+
+### List All photo [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Photo, Photo, Photo])
+
+
+### Create a New Photo [POST]
+
++ Request (application/json)
+
+    + Attributes (PhotoRequest)
+
++ Response 201 (application/json)
+
+        + Headers
+
+            + Location: /album/5
+            
+    + Attributes (Photo)
+         
+## Photo [/photos/{photoId}]
+`/photos/{photoId}`
+
+This endpoint interacted with a single photo.
+
++ Parameters
+    + photoId (Number, required, `1`) - Represent the photo id.
+
+### Retrieve a Photo [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (Photo)
+
+### Update a Photo [PUT]
+
++ Request (application/json)
+
+    + Attributes (PhotoRequest)
+
+
++ Response 201 (application/json)
+
+    + Attributes (Photo)
+
+### Remove a Photo [DELETE]
+
++ Response 204 (application/json)
+
+
+## Data Structures
+
+### Photo
+
++ `albumId`: 1,
++ `id`: 1,
++ `title`: "Lorem Ipsum",
++ `url`: "http://test.com/test.jpg",
++ `thumbnailUrl` : "http://test2.com/test.png"
+
+### PhotoRequest
+
++ `albumId`: 1,
++ `title`: "Lorem Ipsum",
++ `url`: "http://test.com/test.jpg",
++ `thumbnailUrl` : "http://test2.com/test.png"
+
+# Todos
+
+# Group Todos
+These endpoint is a way to access the todo data, the **userId and title fields are required**.
+
+---
+**album attributes:**
+
+- id `(Number)` : unique identifier.
+- userId `(Number)` : represent the user id.
+- title `(String)` : todos's title.
+- completed `(Boolean)`: completion status.
+
+## Todos Collection [/todos]
+`/todos`
+This endpoint interaction with collection of todo.
+
+### List All todo [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (array[Todo, Todo, Todo])
+
+
+### Create a New Todo [POST]
+
++ Request (application/json)
+
+    + Attributes (TodoRequest)
+
++ Response 201 (application/json)
+
+        + Headers
+
+                + Location: /todos/5
+
+    + Attributes (Todo)
+         
+
+## Todo [/todos/{todoId}]
+`/todos/{todoId}`
+This endpoint interacting with only a single todo.
+
++ Parameters
+    + todoId (Number, required, `1`) - Represent the todo id.
+
+### Retrieve Todo [GET]
+
++ Response 200 (application/json)
+
+    + Attributes (Todo)
+
+### Update Todo [PUT]
+
++ Request (application/json)
+
+    + Attributes (TodoRequest)
+
+
++ Response 201 (application/json)
+
+    + Attributes (Todo)
+
+### Remove Todo [DELETE]
+
++ Response 204 (application/json)
+
+
+## Data Structures
+
+### Todo
+
++ `userId`: 1,
++ `id`: 1,
++ `title`: "Lorem Ipsum"
++ `completed`: false
+
+### TodoRequest
+
++ `userId`: 1,
++ `title`: "Lorem Ipsum"
++ `completed`: true

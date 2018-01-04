@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="starter-template">
+                <h1>Yolo API Management</h1>
+                <p>Use this dashboard to authorize new users and clients to access the API.</p>
+                <div class="well">
+                    <h2>Users</h2>
+                    <p>There are {{ users|length }} authorized users.</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Username</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.username }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h4>Add User</h4>
+                    <p>Create a new authorized API user.</p>
+                    <form method="post" action="/">
+                        <h4>Required Fields</h4>
+                        <input type="text" name="username" placeholder="username">
+                        <input type="password" name="password" placeholder="password">
+                        <input type="text" name="name" placeholder="name">
+                        <input type="text" name="email" placeholder="email">
+                        <input type="text" name="phone" placeholder="phone">
+                        <input type="text" name="website" placeholder="website">
+
+                        <h4>Optional Fields</h4>
+                        <input type="text" name="street" placeholder="street">
+                        <input type="text" name="suite" placeholder="suite">
+                        <input type="text" name="city" placeholder="city">
+                        <input type="text" name="zipcode" placeholder="zipcode">
+                        <input type="text" name="lat" placeholder="lat">
+                        <input type="text" name="lng" placeholder="lng">
+                        <input type="text" name="cmpName" placeholder="name">
+                        <input type="text" name="catchPrase" placeholder="catchPrase">
+                        <input type="text" name="bs" placeholder="bs">
+                        <br>
+                        <input type="submit" name='submit' value='Add User'>
+                    </form>
+                </div>
+                <div class="well">
+                    <h2>Client</h2>
+                    <p>There are {{ clients|length }} authorized clients.</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Client ID</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for client in clients %}
+                            <tr>
+                                <td>{{ client.client_id }}</td>
+                                <td>{{ client.client_type }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h4>Add Client</h4>
+                    <p>Generate a new client.</p>
+                    <form method="post" action="/">
+                        <input type="submit" name='submit' value='Add Client'>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </body>
+</html>
