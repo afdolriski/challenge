@@ -2,7 +2,6 @@ from flask import Flask, g, jsonify
 
 from api import myapi
 from core import db, oauth
-from mixer.backend.flask import mixer
 from resources.albums import albums_api
 from resources.comments import comments_api
 from resources.photos import photos_api

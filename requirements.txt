@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+Flask-Oauthlib
+flask-restful
+Werkzeug
+bcrypt
