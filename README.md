@@ -28,14 +28,14 @@ All available endpoints is exactly the same as provided in [this website](https:
 ```
 
 Note that all the fields above are required, the rest is optional.
-* Finally, get a token on the ```/oauth/token``` route using form-data.
-```javascript
-{
-	"client_id": "random string that has been genereated before",
-	"username": "afdolriski",
-	"password": "test",
-	"grant_type": "password"
-}
+* Finally, get a token on the ```/oauth/token``` route. 
+
+**Please note** that this endpoint only receive form-data type as a request body.
+```
+	client_id: random string that has been genereated before,
+	username: afdolriski,
+	password: test,
+	grant_type: password
 ```
 
 That's it! you can access all the available route now.
