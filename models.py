@@ -1,3 +1,4 @@
+from flask import abort
 from datetime import datetime, timedelta
 from werkzeug.security import gen_salt
 from core import db
@@ -6,12 +7,12 @@ import bcrypt
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), unique=True)
+    username = db.Column(db.String(40), unique=True, nullable=False)
     name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(20), nullable=False)
     hashpw = db.Column(db.String(80), nullable=False)
-    phone = db.Column(db.String(15), nullable=False)
-    website = db.Column(db.String(20), nullable=False)
+    phone = db.Column(db.String(15))
+    website = db.Column(db.String(20))
     street = db.Column(db.String(20))
     suite = db.Column(db.String(20))
     city = db.Column(db.String(20))
@@ -19,7 +20,7 @@ class User(db.Model):
     lat = db.Column(db.String(10))
     lng = db.Column(db.String(10))
     cmpName = db.Column(db.String(20))
-    catchPrase = db.Column(db.String(30))
+    catchPhrase = db.Column(db.String(30))
     bs = db.Column(db.String(30))
 
 
@@ -34,16 +35,10 @@ class User(db.Model):
                 User.hashpw == bcrypt.hashpw(encodedpw, userhash)
             ).first()
         else:
-            return user
+            abort(404)
 
     @staticmethod
     def save(**kwargs):
-        """ Create a new User record with the supplied username and password.
-
-        :param username: Username of the user.
-        :param password: Password of the user.
-        """
-        print(kwargs)
         salt = bcrypt.gensalt()
         hash = bcrypt.hashpw(kwargs['password'].encode('utf-8'), salt)
         kwargs['hashpw'] = hash
@@ -52,6 +47,18 @@ class User(db.Model):
         db.session.add(user)
         db.session.commit()
         return user
+
+    @staticmethod
+    def update(id, **kwargs):
+        user = User.query.filter_by(id=id).update(kwargs)
+        db.session.commit()
+        return User.query.get(id)
+
+    @staticmethod
+    def delete(user):
+        db.session.delete(user)
+        db.session.commit()
+        return True
 
     @staticmethod
     def all():
@@ -147,6 +154,28 @@ class Post(db.Model):
     title = db.Column(db.String(40), nullable=False)
     body = db.Column(db.Text(), nullable=False)
 
+    @staticmethod
+    def save(user_id, **kwargs):
+        post = Post(userId=user_id, **kwargs)
+        db.session.add(post)
+        db.session.commit()
+        return post
+
+    @staticmethod
+    def update(id, **kwargs):
+        post = Post.query.filter_by(id=id).update(kwargs)
+        if post:
+            db.session.commit()
+        return Post.query.filter_by(id=id).first()
+
+    @staticmethod
+    def delete(post):
+        db.session.delete(post)
+        db.session.commit()
+        return True
+
+
+
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     postId = db.Column(db.Integer, db.ForeignKey('post.id'))
@@ -155,11 +184,49 @@ class Comment(db.Model):
     email = db.Column(db.String(20), nullable=False)
     body = db.Column(db.Text(), nullable=False)
 
+    @staticmethod
+    def save(**kwargs):
+        comment = Comment(**kwargs)
+        db.session.add(comment)
+        db.session.commit()
+        return comment
+
+    @staticmethod
+    def update(id, **kwargs):
+        comment = Comment.query.filter_by(id=id).update(kwargs)
+        db.session.commit()
+        return Comment.query.get(id)
+
+    @staticmethod
+    def delete(comment):
+        db.session.delete(comment)
+        db.session.commit()
+        return True
+
 class Album(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref='albums')
     title = db.Column(db.String(40), nullable=False)
+
+    @staticmethod
+    def save(user_id, **kwargs):
+        album = Album(userId=user_id, **kwargs)
+        db.session.add(album)
+        db.session.commit()
+        return album
+
+    @staticmethod
+    def update(id, **kwargs):
+        album = Album.query.filter_by(id=id).update(kwargs)
+        db.session.commit()
+        return Album.query.get(id)
+
+    @staticmethod
+    def delete(album):
+        db.session.delete(album)
+        db.session.commit()
+        return True
 
 class Photo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -169,10 +236,48 @@ class Photo(db.Model):
     url = db.Column(db.String(40), nullable=False)
     thumbnailUrl = db.Column(db.String(40), nullable=False)
 
+    @staticmethod
+    def save(**kwargs):
+        photo = Photo(**kwargs)
+        db.session.add(photo)
+        db.session.commit()
+        return photo
+
+    @staticmethod
+    def update(id, **kwargs):
+        photo = Photo.query.filter_by(id=id).update(kwargs)
+        db.session.commit()
+        return Photo.query.get(id)
+
+    @staticmethod
+    def delete(photo):
+        db.session.delete(photo)
+        db.session.commit()
+        return True
+
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref='todos')
     title = db.Column(db.String(40), nullable=False)
-    compledted = db.Column(db.Boolean(), default=False)
+    completed = db.Column(db.Boolean(), default=False)
+
+    @staticmethod
+    def save(user_id, **kwargs):
+        todo = Todo(userId=user_id, **kwargs)
+        db.session.add(todo)
+        db.session.commit()
+        return todo
+
+    @staticmethod
+    def update(id, **kwargs):
+        todo = Todo.query.filter_by(id=id).update(kwargs)
+        db.session.commit()
+        return Todo.query.get(id)
+        
+    @staticmethod
+    def delete(todo):
+        db.session.delete(todo)
+        db.session.commit()
+        return True
 
